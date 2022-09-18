@@ -1,0 +1,16 @@
+<div class="errordialog">
+  <h1 mat-dialog-title style="color: rgb(198, 11, 11); font-size: 19px;" >
+    {{ mensagem.textTitle }}
+  </h1>
+  <div mat-dialog-content style="color: rgb(198, 11, 11)">
+    Código do Erro: {{ mensagem.status }} <br/>
+    {{ mensagem.message }}
+  </div>
+  <!--interpolação-->
+
+  <div mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close mat-button color="warn" (click)="BtnLoad()">
+      Tentar Novamente
+    </button>
+  </div>
+</div>

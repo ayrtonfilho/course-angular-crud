@@ -1,0 +1,20 @@
+table{
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  box-shadow: none;
+  margin: 20px auto;
+  border: none;
+}
+
+mat-card.container{
+  box-shadow: none;
+}
+
+mat-toolbar.text-courses-initial{
+  background-color: rgb(244, 241, 241);
+}
+
+mat-spinner#loadingcourses{
+  margin: 30px auto;
+}
