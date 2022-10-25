@@ -13,12 +13,12 @@ import { CategoryPipe } from './pipes/category.pipe';
     CategoryPipe
   ],
   imports: [
-    CommonModule,
-    MaterialModule
+    CommonModule
   ],
   exports: [
     ErrorDialogComponent,
-    CategoryPipe
+    CategoryPipe,
+    MaterialModule
   ]
 })
 

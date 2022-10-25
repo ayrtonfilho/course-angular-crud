@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './shareds/app-material/materialAngular.module';
+import { SharedModule } from './shareds/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,8 +15,8 @@ import { MaterialModule } from './shareds/app-material/materialAngular.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
