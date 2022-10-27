@@ -18,7 +18,7 @@ export class CoursesComponent implements OnInit {
   // coursesService: CoursesService;
 
   courses$: Observable<Course[]>;
-  displayedColumns = ['name', 'category'];  /*Informo ao Angular quais os meus dados serão trazidos do arquivo 'course.ts'*/
+  displayedColumns = ['id', 'name', 'category', 'actions'];  /*Informo ao Angular quais os meus dados serão trazidos do arquivo 'course.ts'*/
 
   constructor(
     private CoursesService: CoursesService,
