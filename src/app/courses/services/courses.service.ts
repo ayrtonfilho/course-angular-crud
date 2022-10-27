@@ -22,7 +22,8 @@ export class CoursesService {
   //   ];
   // }
 
-  private readonly API = 'api/courses/';
+  // private readonly API = 'api/courses/';
+  private readonly API = 'assets/courses.json';
 
   list(){
     return this.httpClient.get<Course[]>(this.API).pipe(

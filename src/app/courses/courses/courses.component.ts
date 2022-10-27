@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shareds/components/error-dialog/error-dialog.component';
 
@@ -22,8 +23,9 @@ export class CoursesComponent implements OnInit {
 
   constructor(
     private CoursesService: CoursesService,
-
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute
   ) { //realizamos injeção do HttpService dentro do Cursos Component
     // this.courses = []; Posso inicializar dessa forma também.
     // this.coursesService =  new CoursesService(); //instacio o meu Obj CoursesService.
@@ -54,6 +56,11 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     // this.courses = this.CoursesService.list(); //Somente na hora que o componente é inicializado.
+  }
+
+  onAdd(){
+    console.log("OndAdd");
+    this.router.navigate(['new'], { relativeTo: this.route })
   }
 
 }
