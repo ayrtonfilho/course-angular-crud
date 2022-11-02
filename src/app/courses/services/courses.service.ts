@@ -22,9 +22,9 @@ export class CoursesService {
   //   ];
   // }
 
-  // private readonly API = 'api/courses/';
-  private readonly API = 'assets/courses.json';
-
+  private readonly API = 'api/courses/';
+  // private readonly API = 'assets/courses.json';
+  
   list(){
     return this.httpClient.get<Course[]>(this.API).pipe(
       // take(1),
@@ -33,5 +33,11 @@ export class CoursesService {
       tap(course => console.log(course))
     );
   }
+
+
+  save(record: Course){
+    return this.httpClient.post<Course[]>(this.API, record).pipe(first());
+  }
+
 
 }

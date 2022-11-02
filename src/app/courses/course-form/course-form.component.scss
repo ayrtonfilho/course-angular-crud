@@ -5,6 +5,28 @@ mat-card{
 
 }
 
+mat-toolbar{
+  margin-bottom: 40px;
+}
+
+mat-card-content{
+    form{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 80%;
+    }
+}
+
+mat-card-actions{
+  display: flex;
+  
+  button{
+    margin: 2em 1em;
+  }
+}
+
 .full-width{
   width: 100%;
 }
+

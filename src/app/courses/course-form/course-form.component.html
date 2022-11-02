@@ -2,7 +2,7 @@
 
 <mat-card>
 
-  <mat-toolbar>
+  <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span>Detalhes do Curso</span>
     </mat-toolbar-row>
@@ -11,24 +11,29 @@
   <mat-card-content class="full-width">
 
 
-    <form [formGroup]="form" class="full-width">
+    <form [formGroup]="form">
 
       <!-- Name Input -->
-      <mat-form-field>
-        <input MatInput placeholder="Nome" formControlName="name">
+      <mat-form-field appearance="legacy">
+        <input matInput placeholder="Nome" formControlName="name" autocomplete="off">
       </mat-form-field>
 
       <!-- Category Input -->
       <mat-form-field>
-        <input MatInput placeholder="Categoria" formControlName="category">
+        <mat-label>Category</mat-label>
+        <mat-select placeholder="" formControlName="category">
+            <mat-option value="front-end">Back-End</mat-option>
+            <mat-option value="back-end">Front-End</mat-option>
+        </mat-select>
       </mat-form-field>
 
     </form>
   </mat-card-content>
 
+  <!-- Actions Buttons -->
   <mat-card-actions>
-    <button mat-button>Salvar</button>
-    <button mat-button>Cancelar</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()">Salvar</button>
+    <button mat-stroked-button (click)="onCancel()">Cancelar</button>
   </mat-card-actions>
 
 </mat-card>
