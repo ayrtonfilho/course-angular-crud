@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, first, tap } from 'rxjs';
+import { delay, first } from 'rxjs';
 
 import { Course } from './../model/course';
 
@@ -30,14 +30,20 @@ export class CoursesService {
       // take(1),
       first(), //encerra a inscrição depois de trazer o JSON.
       delay(800),
-      tap(course => console.log(course))
+      // tap(course => console.log(course))
     );
   }
 
-
-  save(record: Course){
+  save(record: Partial<Course>){
     return this.httpClient.post<Course[]>(this.API, record).pipe(first());
   }
 
+  loadById(id: string){
+    return this.httpClient.get<Course>(this.API + id);
+  }
+
+  delete(id: number){
+    return this.httpClient.delete<Course[]>(this.API + id).pipe(first())
+  }
 
 }

@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shareds/components/error-dialog/error-dialog.component';
 
-import { Course } from './../model/course';
-import { CoursesService } from './../services/courses.service';
+import { Course } from '../../model/course';
+import { CoursesService } from '../../services/courses.service';
 
 
 @Component({
@@ -19,7 +19,8 @@ export class CoursesComponent implements OnInit {
   // coursesService: CoursesService;
 
   courses$: Observable<Course[]>;
-  displayedColumns = ['id', 'name', 'category', 'actions'];  /*Informo ao Angular quais os meus dados serão trazidos do arquivo 'course.ts'*/
+  // displayedColumns = ['id', 'name', 'category', 'actions'];  /*Informo ao Angular quais os meus dados serão trazidos do arquivo 'course.ts'*/
+  courseLenght = true;
 
   constructor(
     private CoursesService: CoursesService,
@@ -35,17 +36,15 @@ export class CoursesComponent implements OnInit {
         catchError(error => {
           // this.onError("Código do erro: " + error.status +" "+ error.statusText)
           this.onError(error)
-
-          if (error.status == 404) {
-            error.textTitle = "Desculpe, nós que erramos! :´(";
-          } else {
-            error.textTitle = "Algo de errado! :(";
-          }
-
           return of([])
         })
       );
+
+      this.courses$.subscribe(//verifica se há cursos para serem listados.
+        data => this.courseLenght = data.length > 0 ? false: true 
+      );
   }
+
 
   // Retorna o obj erro para a Página de erro.
   onError(errorMsg: any) {
@@ -58,8 +57,11 @@ export class CoursesComponent implements OnInit {
     // this.courses = this.CoursesService.list(); //Somente na hora que o componente é inicializado.
   }
 
+  onUpdate(course: Course){
+    this.router.navigate(['update', course.id], { relativeTo: this.route })
+  }
+
   onAdd(){
-    console.log("OndAdd");
     this.router.navigate(['new'], { relativeTo: this.route })
   }
 
