@@ -7,6 +7,19 @@ table{
   border: none;
 }
 
+p#no-courses{
+  width: 100%;
+  background-color: #fff4f4;
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px 0px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #636363;
+}
+mat-icon{
+  box-shadow: none;
+}
 mat-card.container{
   box-shadow: none;
 }

@@ -38,14 +38,18 @@ export class CourseFormComponent implements OnInit {
     })
   }
 
-  
+
   onCancel(){
     this.location.back();
   }
 
   onSubmit(){
-    this.services.save(this.form.value).subscribe(
-      data => this.onSucess(), error => this.onError());
+    if( this.form.value.name == '' || this.form.value.category == ''){
+      this.onError()
+    }else{
+      this.services.save(this.form.value).subscribe(
+        data => this.onSucess(), error => this.onError());
+    }
   }
 
   private onError(): void{

@@ -24,25 +24,22 @@ export class CoursesService {
 
   private readonly API = 'api/courses/';
   // private readonly API = 'assets/courses.json';
-  
+
   list(){
     return this.httpClient.get<Course[]>(this.API).pipe(
       // take(1),
       first(), //encerra a inscrição depois de trazer o JSON.
-      // delay(800),
+      delay(200),
       // tap(course => console.log(course))
     );
   }
 
-  
+
   loadById(id: string){
     return this.httpClient.get<Course>(this.API + id);
   }
-  
-  delete(id: number){
-    return this.httpClient.delete<Course[]>(this.API + id).pipe(first());
-  }
-  
+
+
   save(record: Partial<Course>){
     if(record.id){//se o registro possui ID
       // console.log("Update!")
@@ -59,6 +56,10 @@ export class CoursesService {
 
   private update(record: Partial<Course>){
     return this.httpClient.put<Course[]>(this.API + record.id, record).pipe(first());
+  }
+
+  delete(id: string){
+    return this.httpClient.delete(this.API + id).pipe(first());
   }
 
 }

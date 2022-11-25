@@ -3,7 +3,7 @@
   <!-- Id Column -->
   <ng-container matColumnDef="id">
     <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-    <mat-cell  *matCellDef="let course">{{ course.id }}</mat-cell>
+    <mat-cell  *matCellDef="let course;index as i">{{ i + 1 }}</mat-cell>
   </ng-container>
 
   <!-- Curso Column -->
@@ -40,7 +40,7 @@
       </button>
 
       <button mat-mini-fab color="warn" aria-label="Remover Curso">
-        <mat-icon><span class="material-symbols-outlined" (click)="onDelete(course.id)">delete</span></mat-icon>
+        <mat-icon><span class="material-symbols-outlined" (click)="onDelete(course)">delete</span></mat-icon>
       </button>
 
     </mat-cell>
