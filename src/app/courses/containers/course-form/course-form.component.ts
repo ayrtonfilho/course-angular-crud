@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 
 import { CoursesService } from '../../services/courses.service';
+import { ActivatedRoute } from '@angular/router';
+import { Course } from '../../model/course';
 
 @Component({
   selector: 'app-course-form',
@@ -14,6 +15,7 @@ import { CoursesService } from '../../services/courses.service';
 export class CourseFormComponent implements OnInit {
 
   form = this.formBuilder.group({
+    id: [''],
     name: [''],
     category: ['']
   });
@@ -21,24 +23,31 @@ export class CourseFormComponent implements OnInit {
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private services: CoursesService,
-    private router: Router,
     private errorSnackBar: MatSnackBar,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const course: Course = this.route.snapshot.data['course'];//dados que vem do meu guards
+    // console.log(course);
+    this.form.setValue({
+      id: course.id,
+      name: course.name,
+      category: course.category,
+    })
+  }
 
   
   onCancel(){
     this.location.back();
   }
 
-
-
   onSubmit(){
     this.services.save(this.form.value).subscribe(
       data => this.onSucess(), error => this.onError());
   }
+
   private onError(): void{
     this.errorSnackBar.open("Erro ao salvar curso!", "Ok", {duration: 5000})
   }
