@@ -18,12 +18,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTableModule,
     MatToolbarModule,
     MatDialogModule,
-    MatButtonModule,
     MatProgressSpinnerModule,
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonModule
   ]
 })
+
 export class MaterialModule { }

@@ -1,11 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, NgModule } from '@angular/core';
-import { NonNullableFormBuilder } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { CoursesService } from '../../services/courses.service';
 import { ActivatedRoute } from '@angular/router';
+
 import { Course } from '../../model/course';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-course-form',
@@ -15,9 +15,13 @@ import { Course } from '../../model/course';
 export class CourseFormComponent implements OnInit {
 
   form = this.formBuilder.group({
-    id: [''],
-    name: [''],
-    category: ['']
+    id: [''] ,
+    name: ['' , [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(90)
+    ]],
+    category: ['' , [Validators.required]]
   });
 
   constructor(
@@ -44,12 +48,8 @@ export class CourseFormComponent implements OnInit {
   }
 
   onSubmit(){
-    if( this.form.value.name == '' || this.form.value.category == ''){
-      this.onError()
-    }else{
-      this.services.save(this.form.value).subscribe(
-        data => this.onSucess(), error => this.onError());
-    }
+    this.services.save(this.form.value).subscribe(
+    data => this.onSucess(), error => this.onError());
   }
 
   private onError(): void{
@@ -60,5 +60,25 @@ export class CourseFormComponent implements OnInit {
     this.onCancel();
   }
 
+  getErrorMessage(fieldName: string){
+
+    const field = this.form.get(fieldName);
+
+    if(field?.hasError('required')){
+      return "Este campo é obrigatório!";
+    }
+
+    if(field?.hasError('minlength')){
+      const requiredLength = field.errors ? field.errors['minlength']['requiredLength'] : 5;
+      return `Tamanho mínimo precisa ser de ${requiredLength} caracteres!`;
+    }
+
+    if(field?.hasError('maxlength')){
+      const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 90;
+      return `Tamanho máximo não pode exceder ${requiredLength} caracteres!`;
+    }
+
+    return 'Campo inválido!';
+  }
 }
 

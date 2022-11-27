@@ -7,6 +7,7 @@ import { ErrorDialogComponent } from 'src/app/shareds/components/error-dialog/er
 
 import { Course } from '../../model/course';
 import { CoursesService } from '../../services/courses.service';
+import { ConfirmationDialogComponent } from '../../../shareds/components/confirmation-dialog/confirmation-dialog.component';
 
 
 @Component({
@@ -48,7 +49,11 @@ export class CoursesComponent implements OnInit {
     );
 
     this.courses$.subscribe(//verifica se há cursos para serem listados.
-      data => this.courseLenght = data.length > 0 ? false: true
+      data => {
+        if(data.length == 0) {this.courseLenght = true}
+        else{this.courseLenght = false}
+        console.log(data);
+      }
     );
   }
   // Retorna o obj erro para a Página de erro.
@@ -60,24 +65,37 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  //btn de Update
   onUpdate(course: Course){
     this.router.navigate(['update', course.id], { relativeTo: this.route })
   }
 
-
+  //btn de Add
   onAdd(){
     this.router.navigate(['new'], { relativeTo: this.route })
   }
 
+  //btn de Delete
   onDelete(course: Course){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Tem certeza que deseja exlcuir esse curso?',
+    });
 
-    this.CoursesService.delete(course.id).subscribe(
-      () => {
-        this.onRefresh();
-        this.errorSnackBar.open("Curso deletado com sucesso!", "Ok", {duration: 5000, verticalPosition: "top", horizontalPosition: 'center'})
-      },
-      error => this.onError(error)
-    );
+    dialogRef.afterClosed().subscribe( (result: boolean) => {
+
+      if (result){ // caso o usuário clique em sim, a gente apaga o curso!
+
+        this.CoursesService.delete(course.id).subscribe(
+          () => {
+            this.onRefresh();
+            this.errorSnackBar.open("Curso deletado com sucesso!", "Ok", {duration: 5000, verticalPosition: "top", horizontalPosition: 'center'})
+          },
+          error => this.onError(error)
+        );
+
+      }
+
+      });
 
   }
 }
