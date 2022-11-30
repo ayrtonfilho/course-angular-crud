@@ -90,7 +90,7 @@ export class CoursesComponent implements OnInit {
             this.onRefresh();
             this.errorSnackBar.open("Curso deletado com sucesso!", "Ok", {duration: 5000, verticalPosition: "top", horizontalPosition: 'center'})
           },
-          error => this.onError(error)
+          error => this.onError("Erro ao deletar o curso!")
         );
 
       }
